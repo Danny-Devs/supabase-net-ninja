@@ -16,17 +16,13 @@ const Create = () => {
       setFormError('Please fill in all the fields correctly.')
       return
     }
-    const { data, error } = await supabase.from('smoothies').insert([
-      {
-        title,
-        method,
-        rating,
-      },
-    ])
+    const { data, error } = await supabase
+      .from('smoothies')
+      .insert([{ title, method, rating }])
 
     if (error) {
       console.log(error)
-      setFormError('Please fill in all the fields correctly.')
+      setFormError('Error attempting to insert data into "smoothies" table.')
     }
     if (data) {
       console.log(data)
@@ -61,7 +57,7 @@ const Create = () => {
           onChange={e => setRating(e.target.value)}
         />
 
-        <button>Create Smoothie Recipe</button>
+        <button type='submit'>Create Smoothie Recipe</button>
 
         {formError && <p className='error'>{formError}</p>}
       </form>
